@@ -1,41 +1,33 @@
-import styled from "styled-components";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Account from "./pages/Account";
+import Bookings from "./pages/Bookings";
+import Login from "./pages/Login";
+import Cabins from "./pages/Cabins";
+import Users from "./pages/Users";
+import Settings from "./pages/Settings";
+import PageNotFound from "./pages/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyles";
-import Button from "./ui/Button";
-import Input from "./ui/Input";
-import Heading from "./ui/Heading";
-import Row from "./ui/Row";
 
-const StyledApp = styled.div`
-  padding: 20px;
-`;
-
-function App() {
+const App = () => {
   return (
     <>
       <GlobalStyles />
-      <StyledApp>
-        <Row>
-          <Row type="horizontal">
-            <Heading as="h1">The Wild Oasis</Heading>
-            <div>
-              <Heading as="h2">Check in and out</Heading>
-              <Button>Check in</Button>
-              <Button variation="secondary" size="small">
-                Check out
-              </Button>
-            </div>
-          </Row>
-          <Row>
-            <Heading as="h3">Form</Heading>
-            <form>
-              <Input type="number" placeholder="Number of guests"></Input>
-              <Input type="number" placeholder="Number of cabins"></Input>
-            </form>
-          </Row>
-        </Row>
-      </StyledApp>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Navigate replace to="dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="account" element={<Account />} />
+          <Route path="Bookings" element={<Bookings />} />
+          <Route path="Login" element={<Login />} />
+          <Route path="Users" element={<Users />} />
+          <Route path="cabins" element={<Cabins />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;
