@@ -12,8 +12,9 @@ import Settings from "./pages/Settings";
 import PageNotFound from "./pages/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
+import { Toaster } from "react-hot-toast";
 
-const queryclient = new QueryClient({
+const queryClient = new QueryClient({
   /*
   Staletime specifies the time it takes for the data to become stale.
   In this case, the data is always stale, which means that as soon as the remote state changes,
@@ -21,13 +22,14 @@ const queryclient = new QueryClient({
   */
   defaultOptions: { queries: { staleTime: 0 } },
 });
+
 const App = () => {
   return (
     /*
     To use react query devtools, an npm package is required.
     It is then used as a child of QueryClientProvider component
     */
-    <QueryClientProvider client={queryclient}>
+    <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={true}></ReactQueryDevtools>
       <GlobalStyles />
       <BrowserRouter>
@@ -46,6 +48,22 @@ const App = () => {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: { duration: 3000 },
+          error: { duration: 5000 },
+          style: {
+            fontSize: "20px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "var(--color-grey-0)",
+            color: "var(--color-grey-700)",
+          },
+        }}
+      />
     </QueryClientProvider>
   );
 };
