@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools/build/lib/devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import Dashboard from "./pages/Dashboard";
 import Account from "./pages/Account";
@@ -14,7 +14,12 @@ import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 
 const queryclient = new QueryClient({
-  defaultOptions: { queries: { staleTime: 60 * 1000 } },
+  /*
+  Staletime specifies the time it takes for the data to become stale.
+  In this case, the data is always stale, which means that as soon as the remote state changes,
+  the data will be refetched.
+  */
+  defaultOptions: { queries: { staleTime: 0 } },
 });
 const App = () => {
   return (
