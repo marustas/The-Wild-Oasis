@@ -26,7 +26,7 @@ const CreateCabinForm = () => {
   });
 
   function onSubmit(data) {
-    mutate(data);
+    mutate({ ...data, image: data.image[0] });
   }
 
   function onError(errors) {
@@ -37,6 +37,7 @@ const CreateCabinForm = () => {
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
+          disabled={isCreating}
           type="text"
           id="name"
           {...register("name", { required: "This field is required" })}
@@ -45,6 +46,7 @@ const CreateCabinForm = () => {
 
       <FormRow label="Maximum capacity" error={errors?.maxCapacity?.message}>
         <Input
+          disabled={isCreating}
           type="number"
           id="maxCapacity"
           {...register("maxCapacity", {
@@ -56,6 +58,7 @@ const CreateCabinForm = () => {
 
       <FormRow label="Regular price" error={errors?.regularPrice?.message}>
         <Input
+          disabled={isCreating}
           type="number"
           id="regularPrice"
           {...register("regularPrice", {
@@ -67,6 +70,7 @@ const CreateCabinForm = () => {
 
       <FormRow label="Discount" error={errors?.discount?.message}>
         <Input
+          disabled={isCreating}
           type="number"
           id="discount"
           defaultValue={0}
@@ -84,6 +88,7 @@ const CreateCabinForm = () => {
         error={errors?.description?.message}
       >
         <Textarea
+          disabled={isCreating}
           type="number"
           id="description"
           defaultValue=""
@@ -91,8 +96,13 @@ const CreateCabinForm = () => {
         />
       </FormRow>
 
-      <FormRow label="Cabin photo" error={errors?.name?.message}>
-        <FileInput id="image" accept="image/*" />
+      <FormRow error={errors?.name?.message} label="Cabin photo">
+        <FileInput
+          disabled={isCreating}
+          {...register("image", { required: "This field is required" })}
+          id="image"
+          accept="image/*"
+        />
       </FormRow>
 
       <FormRow>
