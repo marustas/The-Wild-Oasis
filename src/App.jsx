@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { RxCross2 } from "react-icons/rx";
+import toast, { ToastBar, Toaster } from "react-hot-toast";
 
 import Dashboard from "./pages/Dashboard";
 import Account from "./pages/Account";
@@ -12,7 +14,7 @@ import Settings from "./pages/Settings";
 import PageNotFound from "./pages/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
-import { Toaster } from "react-hot-toast";
+import CloseToastButton from "./ui/CloseToastButton";
 
 const queryClient = new QueryClient({
   /*
@@ -63,7 +65,23 @@ const App = () => {
             color: "var(--color-grey-700)",
           },
         }}
-      />
+      >
+        {(t) => (
+          <ToastBar toast={t}>
+            {({ icon, message }) => (
+              <>
+                {icon}
+                {message}
+                {t.type !== "loading" && (
+                  <CloseToastButton onClick={() => toast.dismiss(t.id)}>
+                    <RxCross2 />
+                  </CloseToastButton>
+                )}
+              </>
+            )}
+          </ToastBar>
+        )}
+      </Toaster>
     </QueryClientProvider>
   );
 };
