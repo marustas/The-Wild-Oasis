@@ -51,6 +51,7 @@ const Filter = ({ filterName, options }) => {
           active={currentFilter === option.value}
           key={option.value}
           onClick={() => handleClick(option.value)}
+          disabled={currentFilter === option.value}
         >
           {option.label}
         </FilterButton>
