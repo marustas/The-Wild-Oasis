@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getBookings } from "../../services/apiBookings";
 import { useSearchParams } from "react-router-dom";
+import { PAGE_SIZE } from "../../utils/constants";
 
 export function useBookings() {
     const [searchParams] = useSearchParams();
@@ -21,6 +22,24 @@ export function useBookings() {
         data: { data: bookings, count } = {},
         error,
     } = useQuery({ queryKey: ["bookings", filter, sortBy, page], queryFn: () => getBookings({ filter, sortBy, page }) });
+
+    /*
+    Prefetching the data, which means fetching the data beforehabd.
+    For example next page in pagination, that we think might come in handy in the future
+    */
+    const pageCount = Math.ceil(count / PAGE_SIZE);
+    const queryClient = useQueryClient();
+
+    if (page < count)
+        queryClient.prefetchQuery({
+            queryKey: ["bookings", filter, sortBy, page + 1],
+            queryFn: () => getBookings({ filter, sortBy, page: page + 1 })
+        });
+
+    if (page > pageCount) queryClient.prefetchQuery({
+        queryKey: ["bookings", filter, sortBy, page - 1],
+        queryFn: () => getBookings({ filter, sortBy, page: page - 1 })
+    });
 
     return { isLoading, bookings, error, count }
 }
