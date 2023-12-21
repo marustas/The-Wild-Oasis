@@ -15,6 +15,7 @@ import PageNotFound from "./pages/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import CloseToastButton from "./ui/CloseToastButton";
+import Booking from "./pages/Booking";
 
 const queryClient = new QueryClient({
   /*
@@ -40,13 +41,14 @@ const App = () => {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="account" element={<Account />} />
-            <Route path="Bookings" element={<Bookings />} />
-            <Route path="Users" element={<Users />} />
+            <Route path="bookings" element={<Bookings />} />
+            <Route path="bookings/:bookingId" element={<Booking />} />
+            <Route path="users" element={<Users />} />
             <Route path="cabins" element={<Cabins />} />
             <Route path="settings" element={<Settings />} />
           </Route>
           <Route index element={<Navigate replace to="dashboard" />} />
-          <Route path="Login" element={<Login />} />
+          <Route path="login" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
