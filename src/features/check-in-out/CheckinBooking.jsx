@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import BookingDataBox from "../../features/bookings/BookingDataBox";
+import BookingDataBox from "../bookings/BookingDataBox";
 import Row from "../../ui/Row";
 import Heading from "../../ui/Heading";
 import ButtonGroup from "../../ui/ButtonGroup";
@@ -28,9 +28,10 @@ function CheckinBooking() {
   const moveBack = useMoveBack();
   const { checkin, isChekingIn } = useCheckin();
   const { booking, isLoading } = useBooking(false);
+  const { settings, isLoading: isLoadingSettings } = useSettings();
+
   const [confirmPaid, setConfirimPaid] = useState();
   const [addBreaskfast, setAddBreakfast] = useState(false);
-  const { settings, isLoading: isLoadingSettings } = useSettings();
 
   useEffect(() => {
     setConfirimPaid(booking?.isPaid ?? false);
