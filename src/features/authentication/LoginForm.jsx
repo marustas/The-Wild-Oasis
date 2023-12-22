@@ -9,15 +9,23 @@ import SpinnerMini from "../../ui/SpinnerMini";
 import { useLogin } from "./useLogin";
 
 function LoginForm() {
-  const [email, setEmail] = useState("marudov.stas@gmail.com");
-  const [password, setPassword] = useState("ComplexPassword1234");
+  const [email, setEmail] = useState("marudov.stas@email.com");
+  const [password, setPassword] = useState("1234");
   const { login, isLogging } = useLogin();
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
 
-    login({ email, password });
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   }
 
   return (
