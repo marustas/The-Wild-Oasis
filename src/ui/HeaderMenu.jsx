@@ -16,15 +16,15 @@ const HeaderMenu = () => {
   return (
     <StyledHeaderMenu>
       <li>
-        <DarkmodeToggle />
-      </li>
-      <li>
         <ButtonIcon onClick={() => navigate("/account")}>
           <HiOutlineUser />
         </ButtonIcon>
       </li>
       <li>
         <Logout />
+      </li>
+      <li>
+        <DarkmodeToggle />
       </li>
     </StyledHeaderMenu>
   );

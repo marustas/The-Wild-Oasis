@@ -7,13 +7,7 @@ import { subtractDates } from "../utils/helpers";
 import { bookings } from "./data-bookings";
 import { cabins } from "./data-cabins";
 import { guests } from "./data-guests";
-
-// const originalSettings = {
-//   minBookingLength: 3,
-//   maxBookingLength: 30,
-//   maxGuestsPerBooking: 10,
-//   breakfastPrice: 15,
-// };
+import Heading from "../ui/Heading";
 
 async function deleteGuests() {
   const { error } = await supabase.from("guests").delete().gt("id", 0);
@@ -138,7 +132,7 @@ function Uploader() {
         gap: "8px",
       }}
     >
-      <h3>SAMPLE DATA</h3>
+      <Heading as="h3">SAMPLE DATA</Heading>
 
       <Button onClick={uploadAll} disabled={isLoading}>
         Upload ALL
