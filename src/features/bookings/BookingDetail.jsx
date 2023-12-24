@@ -17,7 +17,7 @@ import { useCheckout } from "../check-in-out/useCheckout";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDelete } from "./useDelete";
-import { is } from "date-fns/locale";
+import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -40,6 +40,8 @@ function BookingDetail() {
   };
 
   if (isLoading) return <Spinner />;
+
+  if (!booking) return <Empty resource={booking} />;
 
   const { status, id } = booking;
 
